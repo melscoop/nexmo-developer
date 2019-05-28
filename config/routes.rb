@@ -50,7 +50,9 @@ Rails.application.routes.draw do
     products.include?(request['product']) && includes_language
   }
 
-  get '/documentation', to: 'static#documentation'
+  scope '/:locale' do
+    get '/documentation', to: 'static#documentation'
+  end
 
   get '/migrate/tropo/(/*guide)', to: 'static#migrate_details'
 
