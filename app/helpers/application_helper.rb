@@ -90,7 +90,7 @@ module ApplicationHelper
   end
 
   def path_to_url(path)
-    path.gsub(/.*#{@namespace_root}/, '').gsub('.md', '')
+    path.gsub(%r{.*#{@namespace_root}}, '').gsub('.md', '')
   end
 
   def url_to_configuration_identifier(url)

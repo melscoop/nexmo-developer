@@ -95,8 +95,11 @@ Rails.application.routes.draw do
     get '/product-lifecycle/*document', to: 'markdown#show'
   end
 
-  scope '(:namespace)', namespace: /contribute/, defaults: { namespace: '' } do
-    get '/(:product)/*document(/:code_language)', to: 'markdown#show', constraints: DocumentationConstraint.documentation
+
+  scope '/:locale' do
+    scope '(:namespace)', namespace: /contribute/, defaults: { namespace: '' } do
+      get '/(:product)/*document(/:code_language)', to: 'markdown#show', constraints: DocumentationConstraint.documentation
+    end
   end
 
   get '*unmatched_route', to: 'application#not_found'

@@ -1,4 +1,6 @@
 class StaticController < ApplicationController
+  before_action :set_language, only: :documentation
+
   def default_landing
     yaml_name = request[:landing_page]
 
@@ -68,9 +70,8 @@ class StaticController < ApplicationController
 
     @content = MarkdownPipeline.new.call(document)
 
-    @namespace_path = "_documentation/#{@product}"
-    @namespace_root = '_documentation'
-    @sidenav_root = "#{Rails.root}/_documentation"
+    @namespace_root = "_documentation/#{@language}"
+    @sidenav_root = "#{Rails.root}/_documentation/#{@language}/"
 
     render layout: 'documentation'
   end
@@ -233,5 +234,9 @@ class StaticController < ApplicationController
     @careers = Career.visible_to(current_user)
 
     render layout: 'page'
+  end
+
+  def set_language
+    @language = params[:locale]
   end
 end
