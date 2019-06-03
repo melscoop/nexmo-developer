@@ -1,4 +1,5 @@
 class SidenavSubitem < SidenavItem
+  include Rails.application.routes.url_helpers
 
   def title
     @title ||= TitleNormalizer.call(@folder)

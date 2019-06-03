@@ -22,6 +22,14 @@ class MarkdownController < ApplicationController
       language: @language
     }).call(document)
 
+    @sidenav = Sidenav.new(
+      path: @sidenav_root,
+      namespace_root: @namespace_root,
+      request_path: request.path,
+      navigation: @navigation,
+      product: @product
+    )
+
     if !Rails.env.development? && @frontmatter['wip']
       @show_feedback = false
       render 'wip', layout: 'documentation'
