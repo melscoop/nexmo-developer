@@ -101,20 +101,6 @@ class StaticController < ApplicationController
     render layout: 'page'
   end
 
-  def contribute
-    # Read document
-    document = File.read("#{Rails.root}/app/views/static/contribute.md")
-
-    # Parse frontmatter
-    @frontmatter = YAML.safe_load(document)
-
-    @document_title = @frontmatter['title']
-
-    @content = MarkdownPipeline.new.call(document)
-
-    render layout: 'static'
-  end
-
   def legacy
     # Read document
     document = File.read("#{Rails.root}/app/views/static/legacy.md")
