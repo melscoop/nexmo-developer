@@ -56,8 +56,6 @@ class StaticController < ApplicationController
   end
 
   def documentation
-    @navigation = :documentation
-
     @document_path = '/app/views/static/documentation.md'
 
     # Read document
@@ -70,8 +68,13 @@ class StaticController < ApplicationController
 
     @content = MarkdownPipeline.new.call(document)
 
-    @namespace_root = "_documentation/#{@language}"
-    @sidenav_root = "#{Rails.root}/_documentation/#{@language}/"
+    @sidenav = Sidenav.new(
+      path: "#{Rails.root}/_documentation/#{@language}/",
+      namespace_root: "_documentation/#{@language}",
+      request_path: request.path,
+      navigation: :documentation,
+      product: @product
+    )
 
     render layout: 'documentation'
   end
