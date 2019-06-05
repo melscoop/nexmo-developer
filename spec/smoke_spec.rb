@@ -8,7 +8,7 @@ RSpec.describe 'Smoke Tests', type: :request do
   end
 
   it '/documentation contains the expected text' do
-    get '/documentation'
+    get '/en/documentation'
     expect(response.body).to include('Welcome to the Nexmo Developer Documentation')
   end
 

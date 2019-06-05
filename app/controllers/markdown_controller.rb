@@ -92,6 +92,6 @@ class MarkdownController < ApplicationController
   end
 
   def set_language
-    @language = params[:locale]
+    @language = params[:locale] || I18n.default_locale
   end
 end
