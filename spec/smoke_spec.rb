@@ -7,9 +7,13 @@ RSpec.describe 'Smoke Tests', type: :request do
     expect(response.body).to include('Everything you need to build connected applications with Nexmo')
   end
 
-  it '/documentation contains the expected text' do
+  it '/en/documentation contains the expected text' do
     get '/en/documentation'
     expect(response.body).to include('Welcome to the Nexmo Developer Documentation')
+  end
+
+  it '/documentation gets redirected to the default locale /en/documentation' do
+    expect(get '/documentation').to redirect_to(documentation_path(locale: :en))
   end
 
   it '/tutorials contains the expected text' do
@@ -84,6 +88,12 @@ RSpec.describe 'Smoke Tests', type: :request do
     get '/team/technical-lead-developer-experience'
     expect(response.body).to include('Ruby on Rails Technical Lead')
     expect(response.body).to include('This is a test description')
+  end
+
+  it 'markdown page without locale is redirected' do
+    get '/voice/voice-api/guides/numbers'
+
+    expect(response).to redirect_to('/en/voice/voice-api/guides/numbers')
   end
 
   it 'markdown page contains the expected text' do

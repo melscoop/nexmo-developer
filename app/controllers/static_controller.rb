@@ -1,4 +1,5 @@
 class StaticController < ApplicationController
+  before_action :require_locale, only: :documentation
   before_action :set_language, only: :documentation
 
   def default_landing
@@ -227,5 +228,11 @@ class StaticController < ApplicationController
 
   def set_language
     @language = params[:locale]
+  end
+
+  def require_locale
+    unless params[:locale]
+      redirect_to documentation_path(locale: I18n.default_locale), status: :moved_permanently
+    end
   end
 end

@@ -1,4 +1,5 @@
 class MarkdownController < ApplicationController
+  before_action :require_locale, only: :show
   before_action :set_language
   before_action :set_navigation
   before_action :set_product
@@ -93,5 +94,19 @@ class MarkdownController < ApplicationController
 
   def set_language
     @language = params[:locale] || I18n.default_locale
+  end
+
+  def require_locale
+    return if params[:namespace]
+
+    unless params[:locale]
+      redirect_to url_for(
+        document: "#{params[:document]}",
+        controller: :markdown,
+        action: :show,
+        locale: I18n.locale,
+        only_path: true,
+      ), status: :moved_permanently
+    end
   end
 end
