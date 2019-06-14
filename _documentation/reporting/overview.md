@@ -7,59 +7,41 @@ title: Overview
 In this document you can learn about:
 
 * [Reports API Overview](#overview)
+* [Features](#features)
 * [Performance considerations when implementing the Reports API](#performance-considerations)
-* [What products are supported by the Reports API](#products-supported)
+* [Products supported by Reports API](#products-supported)
 * [Tutorial](#tutorial)
-* [Reference](#reference)
+* [API Reference](#reference)
 
 # Overview
+Reports API allows to download call data records (CDRs). Records can be queried using a variety of parameters such as origin and destination phone numbers, status, time period, etc. (see report filters for more information). It is also possible to include the message body/text and to download reports for any of your subaccounts.
 
-The free Reporting API can be used to download up to 50,000 records at a time. Customers subscribing to the enterprise package may download an unlimited number of records per report, within practical limits*. Records can be queried using a variety of parameters such as originating and destination phone numbers, status, and date range (see [report filters](https://ea.developer.nexmo.com/api/reports) for more information).
+Use case examples:
+* Customer billing - download your transactions and use the included price data to determine what to bill your customers
+* Invoice reconciliation - compare your usage data with the invoice you have received
+* Monitoring & analytics - Add CDR data to your business intelligence or analytics system to correlate it with other events
 
-Practical limits:
-* Using the start and end date filters, do not query more than one month data; or
-* Do not query more than 10 million records; whichever is the lowest amount of records
-* Do not request reports more than twice per day
-
-Benefits include:
-
-* Up to 5 concurrent requests.
-* Reports are formatted as CSV (comma separated values).
-* All files are compressed for faster downloads.
-* Asynchronous processing, minimising network resources tied up in open connections.
-* Reports are automatically deleted after 72 hours.
-* API responses follow the REST HAL standard to simplify integration in your existing applications.
-* More filters available, so that you can query exactly the data you need
-
-Some possible use cases you could implement include:
-
-* Customer billing
-    * Download your transactions and use the included price data to determine what to bill your customers
-* Invoice reconciliation
-    * Compare your usage data with the invoice you have received
-* Relate usage to your other data
-    * Add usage data to your business intelligence or analytics system to correlate it with other events
+## Features
+- Variety of filters - query exactly the data you need
+- Concurrent requests - up to 5  per api key
+- Compressed CSV - Reports are formatted as CSV and compressed for faster downloads
+- Privacy - Report files are automatically deleted after 72 hours
+- Callbacks - An HTTP(S) POST callback can be generated to notify when report is completed
 
 ## Performance considerations
+* Report generation takes some time and therefore we recommend that you query less than 1 million records per request to ensure reasonable processing time.
+* The Reports API is not suitable for real-time dashboards or monitoring because report generation can occasionally experience delays.
 
-* 25-30 minutes elapsed time to generate 1 million records
-* We recommend that you query less than 20 million records per request, for a reasonable report generation elapsed time
-* Prefer infrequent queries of bulk data to many requests for small amounts of data, e.g. one request per day/month, depending upon your usage
-* The Reporting API is not suitable for real-time dashboards or monitoring
-* For more information about the Reporting API, please sign up for early access here: https://info.nexmo.com/ReportingAPI.html
-
-## Products Supported
-
-* SMS - inbound and outbound
-* Voice - SIP and TTS
+## Supported products
+* SMS API
+* Messages API
+* Voice API
 * Verify API
 * Number Insight
-* Stitch IP Voice Leg
 
-## Reference
+## API Reference
 
 * [Reports API Reference](/api/reports)
 
 ## Tutorial
-
 * [How to generate a report via Postman for non-technical users](link to be added when available)
