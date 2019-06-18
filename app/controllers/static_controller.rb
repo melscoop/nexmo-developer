@@ -70,11 +70,10 @@ class StaticController < ApplicationController
     @content = MarkdownPipeline.new.call(document)
 
     @sidenav = Sidenav.new(
-      path: "#{Rails.root}/_documentation/#{@language}/",
-      namespace_root: "_documentation/#{@language}",
       request_path: request.path,
       navigation: :documentation,
-      product: @product
+      product: @product,
+      language: @language,
     )
 
     render layout: 'documentation'
@@ -224,10 +223,6 @@ class StaticController < ApplicationController
     @careers = Career.visible_to(current_user)
 
     render layout: 'page'
-  end
-
-  def set_language
-    @language = params[:locale]
   end
 
   def require_locale

@@ -1,5 +1,13 @@
 class Concept
   include ActiveModel::Model
+
+  ORIGIN = "_documentation"
+
+  FILES = [
+    Dir.glob("#{ORIGIN}/#{I18n.default_locale}/**/guides/**/*.md"),
+    Dir.glob("#{ORIGIN}/#{I18n.default_locale}/**/concepts/**/*.md"),
+  ].flatten
+
   attr_accessor :title, :product, :description, :navigation_weight, :document_path, :url, :ignore_in_list
 
   def self.by_name(names, language)
@@ -27,7 +35,7 @@ class Concept
   def self.all(language)
     blocks = files(language).map do |document_path|
       document = File.read(document_path)
-      product = extract_product(document_path, language)
+      product = extract_product(document_path)
 
       frontmatter = YAML.safe_load(document)
 
@@ -46,12 +54,12 @@ class Concept
   end
 
   def self.generate_url(path, language)
-    '/' + path.gsub("#{origin}/#{language}/", '').gsub('.md', '')
+    '/' + path.gsub("#{ORIGIN}/#{language}/", '').gsub('.md', '')
   end
 
-  def self.extract_product(path, language)
+  def self.extract_product(path)
     # Remove the prefix
-    path = path.gsub!("#{origin}/#{language}/", '')
+    path = path.gsub!(/#{ORIGIN}\/[a-z]{2}\//, '')
 
     # Each file is in the form guides/<title>.md, so let's remove the last two segments
     parts = path.split('/')
@@ -63,10 +71,10 @@ class Concept
   end
 
   def self.files(language)
-    Dir.glob("#{origin}/#{language}/**/guides/**/*.md") + Dir.glob("#{origin}/#{language}/**/concepts/**/*.md")
+    FILES.each_with_object([]) do |file, array|
+      document = file.gsub("#{ORIGIN}/#{I18n.default_locale.to_s}/", '')
+      array << DocFinder.find(root: ORIGIN, document: document, language: language)
+    end
   end
 
-  def self.origin
-    "#{Rails.root}/_documentation"
-  end
 end

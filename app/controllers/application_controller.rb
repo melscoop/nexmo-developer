@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
 
   def not_found
-    redirect = Redirector.find(request)
+    redirect = Redirector.find(request.path)
     if redirect
       redirect_to redirect
     else
@@ -56,5 +56,10 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     I18n.locale = params[:locale]
+  end
+
+
+  def set_language
+    @language = params[:locale] || I18n.default_locale
   end
 end

@@ -3,12 +3,10 @@ class MarkdownController < ApplicationController
   before_action :set_language
   before_action :set_navigation
   before_action :set_product
-  before_action :set_document
-  before_action :set_namespace
   before_action :set_tracking_cookie
 
   def show
-    redirect = Redirector.find(request)
+    redirect = Redirector.find(request.path.sub("/#{@language}", ''))
     return redirect_to redirect if redirect
 
     @frontmatter = YAML.safe_load(document)
@@ -24,11 +22,11 @@ class MarkdownController < ApplicationController
     }).call(document)
 
     @sidenav = Sidenav.new(
-      path: @sidenav_root,
-      namespace_root: @namespace_root,
+      namespace: params[:namespace],
+      language: @language,
       request_path: request.path,
       navigation: @navigation,
-      product: @product
+      product: @product,
     )
 
     if !Rails.env.development? && @frontmatter['wip']
@@ -40,7 +38,7 @@ class MarkdownController < ApplicationController
   end
 
   def api
-    redirect = Redirector.find(request)
+    redirect = Redirector.find(request.path.sub("/#{@language}", ''))
     if redirect
       redirect_to redirect
     else
@@ -58,10 +56,6 @@ class MarkdownController < ApplicationController
     @product = params[:product]
   end
 
-  def set_document
-    @document = params[:document]
-  end
-
   def set_namespace
     if params[:namespace].present?
       @namespace_path = "app/views/#{params[:namespace]}"
@@ -74,26 +68,28 @@ class MarkdownController < ApplicationController
     end
   end
 
-  def set_document_path_when_file_name_is_the_same_as_a_linkable_code_language
-    path = "#{@namespace_path}/#{@document}/#{params[:code_language]}.md"
-    return unless File.exist? path
-    @document_path = path
-    [params, request.parameters].each { |o| o.delete(:code_language) }
-    @code_language = nil
-  end
-
   def set_tracking_cookie
     helpers.dashboard_cookie(params[:product])
   end
 
   def document
-    set_document_path_when_file_name_is_the_same_as_a_linkable_code_language
-    @document_path ||= "#{@namespace_path}/#{@document}.md"
-    @document = File.read("#{Rails.root}/#{@document_path}")
+    @document ||= File.read(
+      DocFinder.find(
+        root: root_folder,
+        document: params[:document],
+        language: @language,
+        product: params[:product],
+        code_language: params[:code_language]
+      )
+    )
   end
 
-  def set_language
-    @language = params[:locale] || I18n.default_locale
+  def root_folder
+    if params[:namespace].present?
+      "app/views/#{params[:namespace]}"
+    else
+      '_documentation'
+    end
   end
 
   def require_locale

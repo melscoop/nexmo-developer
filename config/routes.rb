@@ -89,10 +89,12 @@ Rails.application.routes.draw do
   get '/(:product)/task/(:task_name)(/*task_step)(/:code_language)', to: 'task#index', constraints: DocumentationConstraint.documentation
   get '/task/(:task_name)(/*task_step)(/:code_language)', to: 'task#index', constraints: CodeLanguage.route_constraint
 
-  get '/*product/api-reference', to: 'markdown#api'
+  scope '(/:locale)' do
+    get '/*product/api-reference', to: 'markdown#api'
+  end
 
-  scope '(:namespace)', namespace: 'product-lifecycle' do
-    get '/product-lifecycle/*document', to: 'markdown#show'
+  scope '(:namespace)', constraints: { namespace: 'product-lifecycle' } do
+    get '/product-lifecycle/*document', to: 'markdown#show', defaults: { namespace: 'product-lifecycle' }
   end
 
   scope '/:namespace', constraints: { namespace: 'contribute' }, defaults: { namespace: '' } do

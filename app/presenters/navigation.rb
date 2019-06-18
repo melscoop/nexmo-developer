@@ -4,14 +4,13 @@ class Navigation
   NAVIGATION_WEIGHT    = NAVIGATION['navigation_weight']
   NAVIGATION_OVERRIDES = NAVIGATION['navigation_overrides']
 
-  def initialize(folder, namespace_root)
-    @path           = folder.fetch(:path)
-    @namespace_root = namespace_root
+  def initialize(folder)
+    @path = folder.fetch(:path)
   end
 
   def options
     @options ||= begin
-      configuration_identifier = url_to_configuration_identifier(path_to_url)
+      configuration_identifier = @path.sub(/^\w+\/\w+\//, '').gsub('.md', '')
       configuration_identifier
         .split('.')
         .inject(NAVIGATION_OVERRIDES) { |h, k| h[k] || {} }
@@ -19,7 +18,7 @@ class Navigation
   end
 
   def path_to_url
-    @path.gsub(%r{.*#{@namespace_root}}, '').gsub('.md', '')
+    @path.sub(/^\w+\/\w+\//, '').gsub('.md', '')
   end
 
   def url_to_configuration_identifier(url)

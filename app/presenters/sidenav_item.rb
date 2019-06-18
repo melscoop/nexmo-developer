@@ -2,11 +2,10 @@ class SidenavItem
 
   delegate :request_path, :navigation, :product, to: :@sidenav
 
-  def initialize(folder:, namespace_root:, sidenav:)
-    @folder         = folder
-    @namespace_root = namespace_root
-    @sidenav        = sidenav
-    @options        = Navigation.new(folder, namespace_root).options
+  def initialize(folder:, sidenav:)
+    @folder  = folder
+    @sidenav = sidenav
+    @options = Navigation.new(folder).options
   end
 
   def svg?
@@ -31,7 +30,7 @@ class SidenavItem
 
   def children
     @children ||= (@folder[:children] || []).map do |child|
-      SidenavSubitem.new(folder: child, namespace_root: @namespace_root, sidenav: @sidenav)
+      SidenavSubitem.new(folder: child, sidenav: @sidenav)
     end
   end
 

@@ -15,7 +15,7 @@ class SidenavSubitem < SidenavItem
 
   def url
     @url ||= url_for(
-      document: Navigation.new(@folder, @namespace_root).path_to_url.sub(/^./, ''),
+      document: Navigation.new(@folder).path_to_url,
       controller: :markdown,
       action: :show,
       locale: I18n.locale,

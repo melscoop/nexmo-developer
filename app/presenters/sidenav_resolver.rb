@@ -5,14 +5,18 @@ class SidenavResolver
   NAVIGATION_WEIGHT = NAVIGATION['navigation_weight']
   NAVIGATION_OVERRIDES = NAVIGATION['navigation_overrides']
 
-  def initialize(path:, namespace_root:, namespace: nil)
-    @path           = path
-    @namespace_root = namespace_root
-    @namespace      = namespace
+  def initialize(path:, language:, namespace: nil)
+    @path      = path
+    @language  = language
+    @namespace = namespace
   end
 
   def items
-    directories(@path)[:children]
+    if @path.starts_with?('app/views')
+      directories(@path)[:children]
+    else
+      directories("#{@path}/#{I18n.default_locale}")[:children]
+    end
   end
 
   private
@@ -28,12 +32,13 @@ class SidenavResolver
       if File.directory?(full_path)
         data[:children] << directories(full_path, entry)
       else
-        data[:children] << { title: entry, path: full_path, is_file?: true }
+        doc_path = DocFinder.find(root: @path, document: full_path, language: @language, strip_root_and_language: true)
+        data[:children] << { title: entry, path: doc_path, is_file?: true }
       end
     end
 
     # Do we have tasks for this product?
-    product = path.gsub(%r{.*#{@namespace_root}/}, '')
+    product = path.sub(/\w+\/\w+\//, '')
     if DocumentationConstraint.product_with_parent_list.include? product
       if Tasks::TASKS[product]
         data[:children] << { title: 'tasks', path: ".#{product}/tasks", children: TASKS[product] }
@@ -52,9 +57,9 @@ class SidenavResolver
       sort_array = []
       sort_array << (options['navigation_weight'] || 1000) # If we have a path specific navigation weight, use that to explicitly order this
       sort_array << (item[:is_file?] ? 0 : 1) if context[:path].include? 'code-snippets' # Directories *always* go after single files for Code Snippets (priority 1 rather than 0). This even overrides config entries
-      sort_array << (NAVIGATION_WEIGHT[normalised_title(item)] || 1000) # If we have a config entry for this, use it. Otherwise put it at the end
+      sort_array << item_navigation_weight(item) # If we have a config entry for this, use it. Otherwise put it at the end
       sort_array << (item[:is_file?] ? 0 : 1) # If it's a file it gets higher priority than a directory
-      sort_array << (item[:is_file?] && document_meta(item[:path])['navigation_weight'] ? document_meta(item[:path])['navigation_weight'] : 1000) # Use the config entry if we have it. Otherwise it goes to the end
+      sort_array << navigation_weight_from_meta(item) # Use the config entry if we have it. Otherwise it goes to the end
       sort_array
     end
 
@@ -67,24 +72,36 @@ class SidenavResolver
   end
 
   def url_to_configuration_identifier(url)
-    url.tr('/', '.').sub(/^./, '')
+    url.tr('/', '.')
+  end
+
+  def strip_namespace(path)
+    path.sub(/\w+\/\w+\//, '')
   end
 
   def path_to_url(path)
-    path.gsub(%r{.*#{@namespace_root}}, '').gsub('.md', '')
+    strip_namespace(path).gsub('.md', '')
   end
 
-  def normalised_title(item)
-    if item[:is_task?]
+  def item_navigation_weight(item)
+    title = if item[:is_task?]
       item[:title]
     elsif item[:is_file?]
-      document_meta(item[:path])['navigation'] || document_meta(item[:path])['title']
+      meta =  document_meta(item[:path])
+      meta['navigation'] || meta['title']
     else
-      I18n.t("menu.#{item[:title]}")
+      item[:title]
     end
+    NAVIGATION_WEIGHT[title] || 1000
+  end
+
+  def navigation_weight_from_meta(item)
+    return 1000 unless item[:is_file?]
+    document_meta(item[:path])['navigation_weight'] || 1000
   end
 
   def document_meta(path)
-    Tasks.document_meta(path)
+    doc = DocFinder.find(root: @path, document: path, language: @language, strip_root_and_language: true)
+    Tasks.document_meta(doc)
   end
 end

@@ -1,56 +1,56 @@
 navigation_weight:
-  Application: 0
-  Messaging: 1
-  SMS: 1
-  Voice: 2
-  Verify: 3
-  Number Insight: 4
+  application: 0
+  messaging: 1
+  sms: 1
+  voice: 2
+  verify: 3
+  number-insight: 4
   Messages: 5
   Dispatch: 6
-  Numbers: 98
-  Account: 99
-  Vonage Business Cloud: 7
+  numbers: 98
+  account: 99
+  vonage-business-cloud: 7
 
-  Number Programmability: 1
-  VBC APIs: 2
-  Getting Started: 1
-  Account API: 2
-  Extension API: 3
-  User API: 4
-  Vonage Integration Suite: 3
+  number-programmability: 1
+  vbc-apis: 2
+  getting-started: 1
+  account-api: 2
+  extension-api: 3
+  user-api: 4
+  integration-suite: 3
 
   Onboarding: 0
   Overview: 1
   Developer Preview: 2
-  Tasks: 3
-  Quickstarts: 3
-  Guides: 4
-  Code Snippets: 5
+  tasks: 3
+  quickstarts: 3
+  guides: 4
+  code-snippets: 5
 
-  Tutorials: 6
+  tutorials: 6
   Troubleshooting: 7
   API Reference: 7
-  Conversation: 8
+  conversation: 8
 
-  Voice API: 1
-  SIP: 2
+  voice-api: 1
+  sip: 2
 
-  Client SDK: 30
+  client-sdk: 30
   NCCO Reference: 40
-  SDK Documentation: 40
+  sdk-documentation: 40
   API Reference: 50
 
   Overview: 1
-  Setup: 2
-  Concepts: 3
-  In-App Messaging: 4
-  In-App Voice: 5
-  In-App Video: 6
+  setup: 2
+  concepts: 3
+  in-app-messaging: 4
+  in-app-voice: 5
+  in-app-video: 6
 
-  Messages API: 1
-  Dispatch API: 2
+  messages: 1
+  dispatch: 2
 
-  Secret Management: 30
+  secret-management: 30
 
 navigation_overrides:
   application:
