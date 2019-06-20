@@ -98,6 +98,7 @@
 "/tools/cli": "/tools"
 "/tutorials/call-whisper-with-on-answer": "/tutorials/add-a-call-whisper-to-an-inbound-call"
 "/tutorials/smart-local-numbers": "/tutorials/local-numbers"
+"/tutorials/sending-facebook-message-with-failover": "/task/sending-facebook-message-with-failover"
 "/verify": "/verify/overview"
 "/verify/api-reference": "/api/verify"
 "/verify/guides": "/verify/guides/workflows-and-events"
