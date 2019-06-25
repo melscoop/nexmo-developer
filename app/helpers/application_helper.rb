@@ -22,10 +22,6 @@ module ApplicationHelper
     path.gsub(%r{.*#{@namespace_root}}, '').gsub('.md', '')
   end
 
-  def url_to_configuration_identifier(url)
-    url.tr('/', '.').sub(/^./, '')
-  end
-
   def first_link_in_directory(context)
     return nil if context.empty?
     if context.first[:is_file?]

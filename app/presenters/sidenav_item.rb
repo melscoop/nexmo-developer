@@ -9,7 +9,7 @@ class SidenavItem
   end
 
   def svg?
-    svg && svg_color
+    !!(svg && svg_color)
   end
 
   def svg

@@ -8,37 +8,50 @@ class DocFinder
   end
 
   def self.find(root:, document:, language: nil, product: nil, code_language: nil, format: 'md', strip_root_and_language: false)
+    if strip_root_and_language
+      document = strip_root_and_language(root: root, language: "(#{language}|#{I18n.default_locale})", document: document)
+    end
     if code_language.present?
-      linkable_code_language(root, language, product, document, code_language, format)
+      linkable_code_language(
+        root: root,
+        language: language,
+        product: product,
+        document: document,
+        code_language: code_language,
+        format: format
+      )
     else
-      if strip_root_and_language
-        document = strip_root_and_language(root: root, language: "(#{language}|#{I18n.default_locale})", document: document)
-      end
-      non_linkable(root, language, product, document, format)
+      non_linkable(
+        root: root,
+        language: language,
+        product: product,
+        document: document,
+        format: format
+      )
     end
   end
 
-  def self.linkable_code_language(root, language, product, document, code_language, format)
+  def self.linkable_code_language(root:, language:, document:, product: nil, code_language: nil, format: nil)
     key = [
-      build_key(root, product, "#{document}/#{code_language}", format),
-      build_key(root, product, document, format),
+      build_key(root: root, product: product, document: "#{document}/#{code_language}", format: format),
+      build_key(root: root, product: product, document: document, format: format),
     ].select { |k| @dictionary.key?(k) }.first
 
-    available_language = @dictionary.fetch(language, I18n.default_locale.to_s)
+    available_language = @dictionary.fetch(key).fetch(language, I18n.default_locale.to_s)
     build_doc_path(root, key, available_language)
   end
 
-  def self.non_linkable(root, language, product, document, format)
+  def self.non_linkable(root:, language:, document:, product: nil, format: nil)
     if root.starts_with?('app/views')
-      build_key(root, product, document, format)
+      build_key(root: root, product: product, document: document, format: format)
     else
-      key = build_key(root, product, document, format)
+      key = build_key(root: root, product: product, document: document, format: format)
       available_language = @dictionary.fetch(key).fetch(language, I18n.default_locale.to_s)
       build_doc_path(root, key, available_language)
     end
   end
 
-  def self.build_key(root, product, document, format)
+  def self.build_key(root:, document:, product: nil, format: nil)
     path = if Pathname.new(document).extname.blank?
              "#{root}/#{product}/#{document}.#{format}"
            else

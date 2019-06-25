@@ -1,9 +1,6 @@
 class SidenavResolver
 
   IGNORED_PATHS = ['..', '.', '.DS_Store'].freeze
-  NAVIGATION = YAML.load_file("#{Rails.root}/config/navigation.yml")
-  NAVIGATION_WEIGHT = NAVIGATION['navigation_weight']
-  NAVIGATION_OVERRIDES = NAVIGATION['navigation_overrides']
 
   def initialize(path:, language:, namespace: nil)
     @path      = path
@@ -18,8 +15,6 @@ class SidenavResolver
       directories("#{@path}/#{I18n.default_locale}")[:children]
     end
   end
-
-  private
 
   def directories(path, name = nil)
     data = { title: (name || path), path: path }
@@ -52,7 +47,7 @@ class SidenavResolver
     # Sort top level
     context[:children].sort_by! do |item|
       configuration_identifier = url_to_configuration_identifier(path_to_url(item[:path]))
-      options = configuration_identifier.split('.').inject(NAVIGATION_OVERRIDES) { |h, k| h[k] || {} }
+      options = configuration_identifier.split('.').inject(Navigation::OVERRIDES) { |h, k| h[k] || {} }
 
       sort_array = []
       sort_array << (options['navigation_weight'] || 1000) # If we have a path specific navigation weight, use that to explicitly order this
@@ -84,15 +79,8 @@ class SidenavResolver
   end
 
   def item_navigation_weight(item)
-    title = if item[:is_task?]
-      item[:title]
-    elsif item[:is_file?]
-      meta =  document_meta(item[:path])
-      meta['navigation'] || meta['title']
-    else
-      item[:title]
-    end
-    NAVIGATION_WEIGHT[title] || 1000
+    title = TitleNormalizer.call(item)
+    Navigation::WEIGHT[title] || 1000
   end
 
   def navigation_weight_from_meta(item)
