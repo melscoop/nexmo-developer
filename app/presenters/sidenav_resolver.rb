@@ -79,8 +79,8 @@ class SidenavResolver
   end
 
   def item_navigation_weight(item)
-    title = TitleNormalizer.call(item)
-    Navigation::WEIGHT[title] || 1000
+    key = navigation_key(item)
+    Navigation::WEIGHT[key] || 1000
   end
 
   def navigation_weight_from_meta(item)
@@ -91,5 +91,15 @@ class SidenavResolver
   def document_meta(path)
     doc = DocFinder.find(root: @path, document: path, language: @language, strip_root_and_language: true)
     Tasks.document_meta(doc)
+  end
+
+  private
+
+  def navigation_key(item)
+    if item[:is_file?]
+      item[:title].split('.').first
+    else
+      item[:title]
+    end
   end
 end

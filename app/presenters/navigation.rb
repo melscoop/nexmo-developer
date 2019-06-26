@@ -10,7 +10,7 @@ class Navigation
 
   def options
     @options ||= begin
-      path_to_url.split('.').inject(OVERRIDES) { |h, k| h[k] || {} }
+      path_to_url.tr('/', '.').split('.').inject(OVERRIDES) { |h, k| h[k] || {} }
     end
   end
 

@@ -66,8 +66,8 @@ RSpec.describe SidenavResolver do
   describe '#item_navigation_weight' do
     context 'with given navigation weight' do
       it 'returns the corresponding one' do
-        item = { is_task?: true, title: 'Messages'}
-        expect(subject.item_navigation_weight(item)).to eq(5)
+        item = { is_task?: true, title: 'messages'}
+        expect(subject.item_navigation_weight(item)).to eq(2)
       end
     end
 
@@ -105,6 +105,55 @@ RSpec.describe SidenavResolver do
       expect(frontmatter['title']).to eq('Overview')
       expect(frontmatter['meta_title']).to eq('Connect external services to your Nexmo account for the Messages API')
       expect(frontmatter['navigation_weight']).to eq(1)
+    end
+  end
+
+  describe '#sort_navigation' do
+    let(:structure) do
+      {
+        title: '_documentation/en',
+        path: '_documentation/en',
+        children: [
+          { title: 'account',               path: '_documentation/en/account' },
+          { title: 'application',           path: '_documentation/en/application' },
+          { title: 'audit',                 path: '_documentation/en/audit' },
+          { title: 'dispatch',              path: '_documentation/en/dispatch' },
+          { title: 'voice',                 path: '_documentation/en/voice' },
+          { title: 'client-sdk',            path: '_documentation/en/client-sdk' },
+          { title: 'concepts',              path: '_documentation/en/concepts' },
+          { title: 'conversation',          path: '_documentation/en/conversation' },
+          { title: 'messaging',             path: '_documentation/en/messaging' },
+          { title: 'messages',              path: '_documentation/en/messages' },
+          { title: 'number-insight',        path: '_documentation/en/number-insight' },
+          { title: 'numbers',               path: '_documentation/en/numbers' },
+          { title: 'verify',                path: '_documentation/en/verify' },
+          { title: 'vonage-business-cloud', path: '_documentation/en/vonage-business-cloud' },
+          { title: 'redact',                path: '_documentation/en/redact' },
+        ],
+      }
+    end
+
+    it 'sorts the items based on their weight' do
+      result = subject.sort_navigation(structure)
+      items = result[:children].map { |child| child[:title] }
+
+      expect(items).to eq([
+        'concepts',
+        'application',
+        'messaging',
+        'messages',
+        'dispatch',
+        'voice',
+        'verify',
+        'number-insight',
+        'vonage-business-cloud',
+        'conversation',
+        'client-sdk',
+        'numbers',
+        'account',
+        'audit',
+        'redact',
+      ])
     end
   end
 end
