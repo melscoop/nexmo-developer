@@ -228,6 +228,8 @@ class StaticController < ApplicationController
   end
 
   def require_locale
+    return if params[:namespace]
+
     unless params[:locale]
       redirect_to documentation_path(locale: I18n.default_locale), status: :moved_permanently
     end

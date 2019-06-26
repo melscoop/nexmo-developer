@@ -53,7 +53,8 @@ RSpec.describe 'Smoke Tests', type: :request do
 
   it '/contribute redirects' do
     get '/contribute'
-    expect(response.body).to include('<html><body>You are being <a href="http://www.example.com/contribute/overview">redirected</a>.</body></html>')
+
+    expect(response).to redirect_to('/contribute/overview')
   end
 
   it '/contribute/overview contains the expected text' do

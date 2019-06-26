@@ -105,6 +105,8 @@ Rails.application.routes.draw do
     get '/*document(/:code_language)', to: 'markdown#show', constraints: DocumentationConstraint.documentation
   end
 
+  get '(/:locale)/:product/*document(/:code_language)', to: 'markdown#show', constraints: DocumentationConstraint.documentation
+
   get '*unmatched_route', to: 'application#not_found'
 
   root 'static#landing'
