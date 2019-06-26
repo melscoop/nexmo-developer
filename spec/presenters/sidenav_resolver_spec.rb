@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe SidenavResolver do
-
   let(:path)      { '_documentation' }
   let(:language)  { 'en' }
   let(:namespace) { nil }
@@ -10,7 +9,7 @@ RSpec.describe SidenavResolver do
     described_class.new(
       path: path,
       language: language,
-      namespace: namespace,
+      namespace: namespace
     )
   end
 
@@ -38,10 +37,12 @@ RSpec.describe SidenavResolver do
 
       expect(result[:title]).to eq('app/views/product-lifecycle')
       expect(result[:path]).to eq('app/views/product-lifecycle')
-      expect(result[:children]).to eq([
-        { title: 'dev-preview.md', is_file?: true, path: "#{path}/dev-preview.md" },
-        { title: 'beta.md', is_file?: true, path: "#{path}/beta.md" },
-      ])
+      expect(result[:children]).to eq(
+        [
+          { title: 'dev-preview.md', is_file?: true, path: "#{path}/dev-preview.md" },
+          { title: 'beta.md', is_file?: true, path: "#{path}/beta.md" },
+        ]
+      )
     end
   end
 
@@ -66,14 +67,14 @@ RSpec.describe SidenavResolver do
   describe '#item_navigation_weight' do
     context 'with given navigation weight' do
       it 'returns the corresponding one' do
-        item = { is_task?: true, title: 'messages'}
+        item = { is_task?: true, title: 'messages' }
         expect(subject.item_navigation_weight(item)).to eq(2)
       end
     end
 
     context 'without a navigation weight' do
       it 'returns the default one' do
-        item = { is_task?: true, title: 'default'}
+        item = { is_task?: true, title: 'default' }
         expect(subject.item_navigation_weight(item)).to eq(1000)
       end
     end
@@ -137,23 +138,25 @@ RSpec.describe SidenavResolver do
       result = subject.sort_navigation(structure)
       items = result[:children].map { |child| child[:title] }
 
-      expect(items).to eq([
-        'concepts',
-        'application',
-        'messaging',
-        'messages',
-        'dispatch',
-        'voice',
-        'verify',
-        'number-insight',
-        'vonage-business-cloud',
-        'conversation',
-        'client-sdk',
-        'numbers',
-        'account',
-        'audit',
-        'redact',
-      ])
+      expect(items).to eq(
+        [
+          'concepts',
+          'application',
+          'messaging',
+          'messages',
+          'dispatch',
+          'voice',
+          'verify',
+          'number-insight',
+          'vonage-business-cloud',
+          'conversation',
+          'client-sdk',
+          'numbers',
+          'account',
+          'audit',
+          'redact',
+        ]
+      )
     end
   end
 end

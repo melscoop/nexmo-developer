@@ -1,5 +1,4 @@
 class TitleNormalizer
-
   def self.call(folder)
     new(folder).normalize
   end

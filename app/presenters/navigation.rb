@@ -15,6 +15,6 @@ class Navigation
   end
 
   def path_to_url
-    @path.sub(/^\w+\/\w+\//, '').gsub('.md', '')
+    @path.sub(%r{^\w+\/\w+\/}, '').gsub('.md', '')
   end
 end

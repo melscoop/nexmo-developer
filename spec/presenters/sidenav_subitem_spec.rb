@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe SidenavSubitem do
-
   let(:folder) do
     { title: 'overview.md', path: '_documentation/en/concepts/overview.md', is_file?: true }
   end
@@ -11,7 +10,7 @@ RSpec.describe SidenavSubitem do
       Sidenav,
       navigation: :documentation,
       request_path: '/en/concepts/overview',
-      documentation?: true,
+      documentation?: true
     )
   end
 
@@ -49,7 +48,7 @@ RSpec.describe SidenavSubitem do
           Sidenav,
           navigation: :documentation,
           request_path: '/product-lifecycle/dev-preview',
-          documentation?: false,
+          documentation?: false
         )
       end
 

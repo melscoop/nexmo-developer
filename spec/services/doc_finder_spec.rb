@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe DocFinder do
-
   describe '.build_doc_language' do
     let(:root) { '_documentation' }
     let(:doc)  { '_documentation/conversation/api-reference.md' }
@@ -72,7 +71,7 @@ RSpec.describe DocFinder do
         root: root,
         document: document,
         format: format,
-        language: language,
+        language: language
       )
     end
 
@@ -102,7 +101,7 @@ RSpec.describe DocFinder do
         root: root,
         document: document,
         format: format,
-        language: language,
+        language: language
       )
     end
 

@@ -60,7 +60,7 @@ RSpec.describe Concept, type: :model do
 
   describe '#origin' do
     it 'returns the correct origin' do
-      expect(described_class::ORIGIN).to eq("_documentation")
+      expect(described_class::ORIGIN).to eq('_documentation')
     end
   end
 

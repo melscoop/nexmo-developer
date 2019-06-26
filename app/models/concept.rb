@@ -1,7 +1,7 @@
 class Concept
   include ActiveModel::Model
 
-  ORIGIN = "_documentation"
+  ORIGIN = '_documentation'.freeze
 
   FILES = [
     Dir.glob("#{ORIGIN}/#{I18n.default_locale}/**/guides/**/*.md"),
@@ -59,7 +59,7 @@ class Concept
 
   def self.extract_product(path)
     # Remove the prefix
-    path = path.gsub!(/#{ORIGIN}\/[a-z]{2}\//, '')
+    path = path.gsub!(%r{#{ORIGIN}\/[a-z]{2}\/}, '')
 
     # Each file is in the form guides/<title>.md, so let's remove the last two segments
     parts = path.split('/')
@@ -72,9 +72,8 @@ class Concept
 
   def self.files(language)
     FILES.each_with_object([]) do |file, array|
-      document = file.gsub("#{ORIGIN}/#{I18n.default_locale.to_s}/", '')
+      document = file.gsub("#{ORIGIN}/#{I18n.default_locale}/", '')
       array << DocFinder.find(root: ORIGIN, document: document, language: language)
     end
   end
-
 end

@@ -1,5 +1,4 @@
 class SidenavResolver
-
   IGNORED_PATHS = ['..', '.', '.DS_Store'].freeze
 
   def initialize(path:, language:, namespace: nil)
@@ -33,7 +32,7 @@ class SidenavResolver
     end
 
     # Do we have tasks for this product?
-    product = path.sub(/\w+\/\w+\//, '')
+    product = path.sub(%r{\w+\/\w+\/}, '')
     if DocumentationConstraint.product_with_parent_list.include? product
       if Tasks::TASKS[product]
         data[:children] << { title: 'tasks', path: ".#{product}/tasks", children: TASKS[product] }
@@ -71,7 +70,7 @@ class SidenavResolver
   end
 
   def strip_namespace(path)
-    path.sub(/\w+\/\w+\//, '')
+    path.sub(%r{\w+\/\w+\/}, '')
   end
 
   def path_to_url(path)

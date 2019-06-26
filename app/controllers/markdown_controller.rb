@@ -18,7 +18,7 @@ class MarkdownController < ApplicationController
     @content = MarkdownPipeline.new({
       code_language: @code_language,
       current_user: current_user,
-      language: @language
+      language: @language,
     }).call(document)
 
     @sidenav = Sidenav.new(
@@ -26,7 +26,7 @@ class MarkdownController < ApplicationController
       language: @language,
       request_path: request.path,
       navigation: @navigation,
-      product: @product,
+      product: @product
     )
 
     if !Rails.env.development? && @frontmatter['wip']
@@ -82,15 +82,14 @@ class MarkdownController < ApplicationController
 
   def require_locale
     return if params[:namespace]
+    return if params[:locale]
 
-    unless params[:locale]
-      redirect_to url_for(
-        document: "#{params[:document]}",
-        controller: :markdown,
-        action: :show,
-        locale: I18n.locale,
-        only_path: true,
-      ), status: :moved_permanently
-    end
+    redirect_to url_for(
+      document: "#{params[:document]}",
+      controller: :markdown,
+      action: :show,
+      locale: I18n.locale,
+      only_path: true
+    ), status: :moved_permanently
   end
 end

@@ -1,5 +1,4 @@
 class Sidenav
-
   attr_reader :request_path, :navigation, :product
 
   def initialize(request_path:, navigation:, product:, language:, namespace: nil)
@@ -32,7 +31,7 @@ class Sidenav
     if @namespace.present?
       @path = "app/views/#{@namespace}"
     else
-      @path = "_documentation"
+      @path = '_documentation'
     end
   end
 
@@ -56,7 +55,7 @@ class Sidenav
     @resolver ||= SidenavResolver.new(
       path: @path,
       namespace: @namespace,
-      language: @language,
+      language: @language
     )
   end
 end

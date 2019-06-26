@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Sidenav do
-
   let(:request_path) { '/en/documentation' }
   let(:product)      { nil }
   let(:language)     { 'en' }

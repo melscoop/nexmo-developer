@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SmartlingAPI do
-  let(:file)     { "_documentation/en/messages/overview.md" }
+  let(:file)     { '_documentation/en/messages/overview.md' }
   let(:file_api) { instance_spy(Smartling::File) }
   let(:file_uri) { 'messages/overview.md' }
   let(:locale)   { 'cn' }
@@ -10,7 +10,7 @@ RSpec.describe SmartlingAPI do
     described_class.new(
       user_id: 'USER_ID',
       user_secret: 'USER_SECRET',
-      project_id: 'PROJECT_ID',
+      project_id: 'PROJECT_ID'
     )
   end
 

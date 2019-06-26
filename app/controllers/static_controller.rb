@@ -75,7 +75,7 @@ class StaticController < ApplicationController
       request_path: request.path,
       navigation: @navigation,
       product: @product,
-      language: @language,
+      language: @language
     )
 
     render layout: 'documentation'
@@ -230,8 +230,6 @@ class StaticController < ApplicationController
   def require_locale
     return if params[:namespace]
 
-    unless params[:locale]
-      redirect_to documentation_path(locale: I18n.default_locale), status: :moved_permanently
-    end
+    redirect_to documentation_path(locale: I18n.default_locale), status: :moved_permanently unless params[:locale]
   end
 end

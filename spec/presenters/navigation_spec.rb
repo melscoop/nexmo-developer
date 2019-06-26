@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Navigation do
-
   let(:folder) { { path: '_documentation/en/concepts' } }
 
   describe '#options' do

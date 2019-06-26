@@ -13,7 +13,8 @@ RSpec.describe 'Smoke Tests', type: :request do
   end
 
   it '/documentation gets redirected to the default locale /en/documentation' do
-    expect(get '/documentation').to redirect_to(documentation_path(locale: :en))
+    get '/documentation'
+    expect(response).to redirect_to(documentation_path(locale: :en))
   end
 
   it '/tutorials contains the expected text' do

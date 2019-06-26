@@ -25,14 +25,13 @@ class SmartlingAPI
   private
 
   def file_uri(filename)
-    filename.gsub(/_documentation\/[a-z]{2}\//, '')
+    filename.gsub(%r{_documentation\/[a-z]{2}\/}, '')
   end
 
   def wrap_in_rescue
-    begin
-      yield
-    rescue => e
-    end
+    yield
+  rescue StandardError => e
+    # TODO: handle exceptions
+    Rails.logger.error(e.message)
   end
-
 end

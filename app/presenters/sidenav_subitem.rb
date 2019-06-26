@@ -21,7 +21,7 @@ class SidenavSubitem < SidenavItem
           controller: :markdown,
           action: :show,
           locale: I18n.locale,
-          only_path: true,
+          only_path: true
         )
       else
         "/#{Navigation.new(@folder).path_to_url}"

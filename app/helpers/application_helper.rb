@@ -19,7 +19,7 @@ module ApplicationHelper
   end
 
   def path_to_url(path)
-    path.gsub(%r{.*#{@namespace_root}}, '').gsub('.md', '')
+    path.gsub(/.*#{@namespace_root}/, '').gsub('.md', '')
   end
 
   def first_link_in_directory(context)

@@ -7,6 +7,7 @@ class DocFinder
     attr_accessor :configuration
   end
 
+  # rubocop:disable Metrics/ParameterLists
   def self.find(root:, document:, language: nil, product: nil, code_language: nil, format: 'md', strip_root_and_language: false)
     if strip_root_and_language
       document = strip_root_and_language(root: root, language: "(#{language}|#{I18n.default_locale})", document: document)
@@ -50,6 +51,7 @@ class DocFinder
       build_doc_path(root, key, available_language)
     end
   end
+  # rubocop:enable Metrics/ParameterLists
 
   def self.build_key(root:, document:, product: nil, format: nil)
     path = if Pathname.new(document).extname.blank?
@@ -57,7 +59,7 @@ class DocFinder
            else
              "#{root}/#{product}/#{document}"
            end
-    path.gsub(/\/\/\/|\/\//, '/')
+    path.gsub(%r{\/\/\/|\/\/}, '/')
   end
 
   def self.build_doc_path(root, doc, language)
@@ -92,7 +94,7 @@ class DocFinder
 
   def self.load_languages
     configuration.paths.each do |path|
-      Dir.foreach(path).reject{ |d| EXCLUSIONS.include? d }.each do |language|
+      Dir.foreach(path).reject { |d| EXCLUSIONS.include? d }.each do |language|
         Dir.glob("#{path}/#{language}/**/*.*").each do |file|
           doc_name = strip_root_and_language(root: path, language: language, document: file)
           key = "#{path}/#{doc_name}"
@@ -102,8 +104,8 @@ class DocFinder
     end
   end
 
-  def self.strip_root_and_language(root: , language:, document:)
-    document.sub(/#{root}\//, '').sub(/#{language}\//, '')
+  def self.strip_root_and_language(root:, language:, document:)
+    document.sub(%r{#{root}\/}, '').sub(%r{#{language}\/}, '')
   end
 
   class Configuration
