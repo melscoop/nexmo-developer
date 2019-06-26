@@ -22,6 +22,10 @@ class Sidenav
     @namespace.presence || 'documentation'
   end
 
+  def documentation?
+    namespace == 'documentation'
+  end
+
   private
 
   def after_initialize!

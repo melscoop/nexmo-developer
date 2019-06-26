@@ -14,13 +14,19 @@ class SidenavSubitem < SidenavItem
   end
 
   def url
-    @url ||= url_for(
-      document: Navigation.new(@folder).path_to_url,
-      controller: :markdown,
-      action: :show,
-      locale: I18n.locale,
-      only_path: true,
-    )
+    @url ||= begin
+      if documentation?
+        url_for(
+          document: Navigation.new(@folder).path_to_url,
+          controller: :markdown,
+          action: :show,
+          locale: I18n.locale,
+          only_path: true,
+        )
+      else
+        "/#{Navigation.new(@folder).path_to_url}"
+      end
+    end
   end
 
   def active?

@@ -11,6 +11,7 @@ RSpec.describe SidenavSubitem do
       Sidenav,
       navigation: :documentation,
       request_path: '/en/concepts/overview',
+      documentation?: true,
     )
   end
 
@@ -34,7 +35,26 @@ RSpec.describe SidenavSubitem do
   end
 
   describe '#url' do
-    it { expect(subject.url).to eq('/en/concepts/overview') }
+    context 'for a document' do
+      it { expect(subject.url).to eq('/en/concepts/overview') }
+    end
+
+    context 'otherwise' do
+      let(:folder) do
+        { title: 'beta.md', path: 'app/views/product-lifecycle/beta.md', is_file?: true }
+      end
+
+      let(:sidenav) do
+        instance_double(
+          Sidenav,
+          navigation: :documentation,
+          request_path: '/product-lifecycle/dev-preview',
+          documentation?: false,
+        )
+      end
+
+      it { expect(subject.url).to eq('/product-lifecycle/beta') }
+    end
   end
 
   describe '#active?' do

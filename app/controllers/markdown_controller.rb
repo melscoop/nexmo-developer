@@ -56,18 +56,6 @@ class MarkdownController < ApplicationController
     @product = params[:product]
   end
 
-  def set_namespace
-    if params[:namespace].present?
-      @namespace_path = "app/views/#{params[:namespace]}"
-      @namespace_root = 'app/views'
-      @sidenav_root = "app/views/#{params[:namespace]}"
-    else
-      @namespace_path = "_documentation/#{@language}/#{@product}"
-      @namespace_root = "_documentation/#{@language}"
-      @sidenav_root = "#{Rails.root}/_documentation/#{@language}"
-    end
-  end
-
   def set_tracking_cookie
     helpers.dashboard_cookie(params[:product])
   end

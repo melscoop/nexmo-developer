@@ -69,9 +69,11 @@ class StaticController < ApplicationController
 
     @content = MarkdownPipeline.new.call(document)
 
+    @navigation = :documentation
+
     @sidenav = Sidenav.new(
       request_path: request.path,
-      navigation: :documentation,
+      navigation: @navigation,
       product: @product,
       language: @language,
     )

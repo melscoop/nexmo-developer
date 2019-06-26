@@ -1,6 +1,6 @@
 class SidenavItem
 
-  delegate :request_path, :navigation, :product, to: :@sidenav
+  delegate :request_path, :navigation, :product, :documentation?, :namespace, to: :@sidenav
 
   def initialize(folder:, sidenav:)
     @folder  = folder
