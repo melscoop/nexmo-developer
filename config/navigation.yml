@@ -2,13 +2,14 @@ navigation_weight:
   application: 0
   messaging: 1
   sms: 1
-  voice: 2
-  verify: 3
-  number-insight: 4
+  voice: 3
+  verify: 5
+  number-insight: 6
   messages: 2
-  dispatch: 2
+  dispatch: 4
   numbers: 98
   account: 99
+  redact: 100
   vonage-business-cloud: 7
 
   number-programmability: 1

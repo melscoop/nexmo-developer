@@ -134,7 +134,7 @@ RSpec.describe SidenavResolver do
       }
     end
 
-    xit 'sorts the items based on their weight' do
+    it 'sorts the items based on their weight' do
       result = subject.sort_navigation(structure)
       items = result[:children].map { |child| child[:title] }
 
@@ -144,8 +144,8 @@ RSpec.describe SidenavResolver do
           'application',
           'messaging',
           'messages',
-          'dispatch',
           'voice',
+          'dispatch',
           'verify',
           'number-insight',
           'vonage-business-cloud',
@@ -153,8 +153,8 @@ RSpec.describe SidenavResolver do
           'client-sdk',
           'numbers',
           'account',
-          'audit',
           'redact',
+          'audit',
         ]
       )
     end
