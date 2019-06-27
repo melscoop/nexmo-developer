@@ -52,12 +52,6 @@ RSpec.describe 'Smoke Tests', type: :request do
     expect(response.body).to include('Join the Nexmo Community Slack')
   end
 
-  it '/contribute redirects' do
-    get '/contribute'
-
-    expect(response).to redirect_to('/contribute/overview')
-  end
-
   it '/contribute/overview contains the expected text' do
     get '/contribute/overview'
     expect(response.body).to include('We\'re always looking at ways to improve our documentation and platform and would love to invite you to contribute your suggestions not only to the content but also the open-source platform that it is built upon.')
