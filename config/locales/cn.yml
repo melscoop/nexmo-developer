@@ -57,3 +57,16 @@ cn:
     whatsapp: WλáƭƨÂƥƥ
     messenger: Fáçèβôôƙ Mèƨƨèñϱèř
     viber: Vïβèř §èřƲïçè Mèƨƨáϱèƨ
+  layouts:
+    partials:
+      header:
+        documentation: Ðôçú₥èñƭáƭïôñ
+        tutorials: Túƭôřïáℓƨ
+        api-reference: ÂÞÌ Rèƒèřèñçè
+        sdks-and-tools: §ÐKƨ & Tôôℓƨ
+        community: Çô₥₥úñïƭ¥
+        extend: Éжƭèñδ
+        hiring: Wè'řè λïřïñϱ
+        support: §úƥƥôřƭ
+        sign-in: §ïϱñ Ìñ
+        try-it: Tř¥ ïƭ ƒřèè

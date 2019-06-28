@@ -90,3 +90,17 @@ en:
     whatsapp: WhatsApp
     messenger: Facebook Messenger
     viber: Viber Service Messages
+  layouts:
+    partials:
+      header:
+        documentation: Documentation
+        tutorials: Tutorials
+        api-reference: API Reference
+        sdks-and-tools: SDKs & Tools
+        community: Community
+        extend: Extend
+        hiring: We're hiring
+        support: Support
+        sign-in: Sign In
+        try-it: Try it free
+        get_started: Get started now
