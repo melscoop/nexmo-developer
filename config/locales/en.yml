@@ -30,7 +30,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+
   menu:
     messaging: Messaging
     voice: Voice
@@ -104,3 +104,46 @@ en:
         sign-in: Sign In
         try-it: Try it free
         get_started: Get started now
+
+  code_snippets:
+    copy_to_clipboard: Copy to Clipboard
+    write_code:
+      view_full_source: View full source
+      write_the_code: Write the code
+    configure_client:
+      initialize_dependencies: Initialize your dependencies
+
+  filters:
+    generate_your_jwt: Generate your JWT
+    install_dependencies: Install dependencies
+
+  services:
+    code_snippet_renderer:
+      add_instructions_to_file: 'Add the following to `%{file}`:'
+      add_instructions_to_code: 'Add the following to your code:'
+      create_instructions: 'Create a file named `%{filename}` and add the following code:'
+      run_command: >-
+        ## Run your code
+          Save this file to your machine and run it:
+            <pre class='highlight bash run-command'><code>%{command}</code></pre>
+
+      curl:
+        only_permitted_dependency: The only permitted curl dependency is `jwt`
+        text: >-
+          Execute the following command at your terminal prompt to create the <a href="/concepts/guides/authentication#json-web-tokens-jwt">JWT</a> for authentication:
+      java:
+        add_instructions: 'Add the following to the `main` method of the `%{file}` class:'
+        create_instructions: 'Create a class named `%{file}` and add the following code to the `main` method:'
+        run_command: >-
+          ## Run your code
+            We can use the `application` plugin for Gradle to simplify the running of our application.
+             Update your `build.gradle` with the following:
+
+             ```groovy
+            apply plugin: 'application'
+            mainClassName = project.hasProperty('main') ? project.getProperty('main') : ''
+            ```
+
+            Run the following `gradle` command to execute your application, replacing `%{chomped_package}` with the package containing `%{file}`:
+
+            <pre class="highlight bash run-command"><code>gradle run -Pmain=%{main}</code></pre>
