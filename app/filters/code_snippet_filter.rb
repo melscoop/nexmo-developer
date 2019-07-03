@@ -51,7 +51,7 @@ class CodeSnippetFilter < Banzai::Filter
       run_html = @renderer.run_command(config['run_command'], config['file_name'], config['code']['source']).to_s
 
       prereqs = (application_html + dependency_html + client_html).strip
-      prereqs = "<h2>Prerequisites</h2>#{prereqs}" unless prereqs.empty?
+      prereqs = "<h2>#{I18n.t('.filters.prerequisites')}</h2>#{prereqs}" unless prereqs.empty?
       prereqs + code_html + run_html
     end
   end
