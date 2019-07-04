@@ -114,16 +114,20 @@ class CodeSnippetsFilter < Banzai::Filter
 
       parent_config = parent_config.to_yaml.lines[1..-1].join
 
-      source = <<~HEREDOC
-        ```single_code_snippet
-        #{content.to_yaml}\n#{parent_config}
-        ```
-      HEREDOC
+      source = render_single_snippet(content, parent_config)
 
       content[:body] = MarkdownPipeline.new(options).call(source)
 
       content
     end
+  end
+
+  def render_single_snippet(content, parent_config)
+    <<~HEREDOC
+      ```single_code_snippet
+      #{content.to_yaml}\n#{parent_config}
+      ```
+    HEREDOC
   end
 
   def sort_contents(contents)

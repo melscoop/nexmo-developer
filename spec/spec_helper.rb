@@ -110,5 +110,5 @@ RSpec.configure do |config|
 =end
 
   # Store snapshots in the spec dir
-  config.snapshot_dir = "spec/fixtures/snapshots"
+  config.snapshot_dir = 'spec/fixtures/snapshots'
 end

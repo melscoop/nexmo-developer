@@ -18,6 +18,7 @@ RSpec.describe CodeSnippetsFilter do
 
   it 'creates correct html output with correct input' do
     expect(SecureRandom).to receive(:hex).at_least(:once).and_return('ID123456')
+    allow_any_instance_of(CodeSnippetsFilter).to receive(:render_single_snippet).and_return('')
 
     input = <<~HEREDOC
       ```code_snippets
@@ -25,6 +26,6 @@ RSpec.describe CodeSnippetsFilter do
       ```
     HEREDOC
 
-    expect(described_class.call(input)).to match_snapshot("code_snippets_send_sms_default")
+    expect(described_class.call(input)).to match_snapshot('code_snippets_send_sms_default')
   end
 end
