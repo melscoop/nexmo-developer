@@ -1,8 +1,3 @@
-# line 19: if content language - what happens if its not provided
-# line 69: what happens if list.any? is true
-# line 111: what is parent_config with & without config['application']
-# line 138: what is active_index w & w/o options[:code_language]
-
 require 'rails_helper'
 
 RSpec.describe CodeSnippetsFilter do
