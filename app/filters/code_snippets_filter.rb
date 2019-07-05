@@ -56,10 +56,7 @@ class CodeSnippetsFilter < Banzai::Filter
     @tabs = @document.at_css('.Vlt-tabs__header--bordered')
     @tabs_content = @document.at_css('.Vlt-tabs__content')
 
-    contents.each do |content|
-      create_tabs(content)
-      create_content(content)
-    end
+    tab_maker
 
     source = @document.to_html
 
@@ -74,6 +71,13 @@ class CodeSnippetsFilter < Banzai::Filter
     resolve_active_tab(list)
 
     list
+  end
+
+  def tab_maker
+    contents.each do |content|
+      create_tabs(content)
+      create_content(content)
+    end
   end
 
   def validate_config
