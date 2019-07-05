@@ -28,4 +28,14 @@ RSpec.describe CodeSnippetsFilter do
 
     expect(described_class.call(input)).to match_snapshot('code_snippets_send_sms_default')
   end
+
+  it 'raises an exception if there is no source parameter provided in the input' do
+    input = <<~HEREDOC
+      ```code_snippets
+
+      ```
+    HEREDOC
+
+    expect { described_class.call(input) }.to raise_error(RuntimeError, 'A source key must be present in this building_blocks config')
+  end
 end
