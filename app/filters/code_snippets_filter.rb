@@ -66,8 +66,6 @@ class CodeSnippetsFilter < Banzai::Filter
     list = content_from_source
     list ||= []
 
-    return list unless list.any?
-
     list = sort_contents(list)
     resolve_active_tab(list)
 
