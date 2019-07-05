@@ -38,4 +38,14 @@ RSpec.describe CodeSnippetsFilter do
 
     expect { described_class.call(input) }.to raise_error(RuntimeError, 'A source key must be present in this building_blocks config')
   end
+
+  it 'raises an exception if path in source parameter is non-existent' do
+    input = <<~HEREDOC
+      ```code_snippets
+      source: '_not/an/actual/path'
+      ```
+    HEREDOC
+
+    expect { described_class.call(input) }.to raise_error(RuntimeError, 'No .yml files found for _not/an/actual/path code snippets')
+  end
 end
