@@ -85,6 +85,10 @@ class CodeSnippetsFilter < Banzai::Filter
     files = Dir[source_path]
     raise "No .yml files found for #{@config['source']} code snippets" if files.empty?
 
+    generate_content(files)
+  end
+
+  def generate_content(files)
     files.map do |content_path|
       source = File.read(content_path)
 
