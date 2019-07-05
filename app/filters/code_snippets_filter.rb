@@ -48,6 +48,10 @@ class CodeSnippetsFilter < Banzai::Filter
       </div>
     HEREDOC
 
+    generate_html_content(html)
+  end
+
+  def generate_html_content(html)
     @document = Nokogiri::HTML::DocumentFragment.parse(html)
     @tabs = @document.at_css('.Vlt-tabs__header--bordered')
     @tabs_content = @document.at_css('.Vlt-tabs__content')
