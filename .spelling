@@ -268,5 +268,6 @@ gevent
 NexmoClient
 AWS
 CloudWatch
+CloudFormation
 Lambda
 endpoint
