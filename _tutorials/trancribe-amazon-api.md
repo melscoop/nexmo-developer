@@ -84,11 +84,11 @@ The transcription is performed by the Amazon Transcribe API, which is part of [A
 
 You will also need to:
 * Create two new [S3](https://aws.amazon.com/s3/) buckets to store the raw call audio and generated transcripts
-* Configure a [Cloudwatch event](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) that launches a serverless [Lambda function](https://aws.amazon.com/lambda/) when your transcription job is complete
+* Configure a [CloudWatch event](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) that launches a serverless [Lambda function](https://aws.amazon.com/lambda/) when your transcription job is complete
 
 ### Create an AWS account
 
-[Create an AWS account with an Adminstrator user](https://docs.aws.amazon.com/transcribe/latest/dg/setting-up-asc.html). Make a note of your AWS key and secret, because you cannot retrieve the secret later on.
+[Create an AWS account with an Administrator user](https://docs.aws.amazon.com/transcribe/latest/dg/setting-up-asc.html). Make a note of your AWS key and secret, because you cannot retrieve the secret later on.
 
 ### Install the AWS CLI
 Install and configure the AWS CLI using [this guide](https://docs.aws.amazon.com/transcribe/latest/dg/setup-asc-awscli.html).
@@ -97,7 +97,7 @@ Install and configure the AWS CLI using [this guide](https://docs.aws.amazon.com
 
 Use the following AWS CLI commands to create two new S3 buckets in your chosen region (`us-east-1` in this example), one for the raw call audio and the other for the generated transcripts. These must be uniquely named across S3, so be creative!
 
-> **Important**: Ensure that the `region` you choose [supports](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/) both the Amazon Transcribe API and Cloudwatch Events:
+> **Important**: Ensure that the `region` you choose [supports](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/) both the Amazon Transcribe API and CloudWatch Events:
 
 ```sh
 aws s3 mb s3://your-audio-bucket-name --region us-east-1
@@ -108,7 +108,7 @@ aws s3 mb s3://your-transcription-bucket-name --region us-east-1
 
 ### Get the code
 
-The code for this project is [on Github](https://github.com/Nexmo/amazon-transcribe-call). It is written in Node.js  using the [express](https://expressjs.com/) web application framework. It is a working example that you can adapt to suit your own requirements.
+The code for this project is [on GitHub](https://github.com/Nexmo/amazon-transcribe-call). It is written in node.js.js  using the [express](https://expressjs.com/) web application framework. It is a working example that you can adapt to suit your own requirements.
 
 Either clone or download the repository to your local machine, in a new directory.
 
@@ -116,9 +116,9 @@ Either clone or download the repository to your local machine, in a new director
 
 Run `npm install` in the application directory to install the required dependencies:
 
-* `aws-sdk`: The AWS Node.js SDK
-* `body-parser`: Node.js body-parsing middleware
-* `express`: A web application framework for Node.js
+* `aws-sdk`: The AWS node.js.js SDK
+* `body-parser`: node.js.js body-parsing middleware
+* `express`: A web application framework for node.js.js
 * `serverless`: To deploy your Lambda function
 * `shortid`: Generates random file names for call recordings
 
@@ -129,7 +129,7 @@ Move your downloaded `private.key` file into the root of your application direct
 Then, copy `example.env` to `.env` and configure the following settings:
 
 * `NEXMO_APPLICATION_ID`: The Nexmo Voice Application ID you created earlier
-* `NEXMO_PRIVATE_KEY_PATH`: For example: "./private.key"
+* `NEXMO_PRIVATE_KEY_PATH`: For example: `./private.key`
 * `OTHER_PHONE_NUMBER`: Another phone number you can call to create a conversation
 * `AWS_KEY`: Your AWS key
 * `AWS_SECRET`: Your AWS secret
@@ -140,7 +140,7 @@ Then, copy `example.env` to `.env` and configure the following settings:
 
 ### Deploy your Lambda
 
-The `transcribeReadyService` folder contains a `handler.js` file which defines a Lambda function. This lambda makes a `POST` request to the `/webhooks/transcription` endpoint when Cloudwatch receives a transcription job complete event.
+The `transcribeReadyService` folder contains a `handler.js` file which defines a Lambda function. This lambda makes a `POST` request to the `/webhooks/transcription` endpoint when CloudWatch receives a transcription job complete event.
 
 Change the `options.host` property to match your public-facing server's host name:
 
@@ -173,7 +173,7 @@ exports.transcribeJobStateChanged = (event, context) => {
 };
 ```
 
-The Cloudwatch event handler is defined in the accompanying `serverless.yml` file. Make sure that the `provider.region` matches your AWS region:
+The CloudWatch event handler is defined in the accompanying `serverless.yml` file. Make sure that the `provider.region` matches your AWS region:
 
 ```yaml
 service: nexmo-transcribe
@@ -213,11 +213,11 @@ serverless deploy
 
 The main application code is in the `index.js` file.
 
-The application directory also contains the following subfolders:
+The application directory also contains the following sub folders:
 
 * `recordings`: Will contain the raw audio call mp3 files, uniquely named using `shortid`
 * `transcripts`: Contains the completed transcripts, downloaded from S3 when the transcription jobs complete
-* `transcribeReadyService`: Contains the Lambda function and Cloudwatch event definition YAML
+* `transcribeReadyService`: Contains the Lambda function and CloudWatch event definition YAML
 
 ### Using the Nexmo REST API client library
 
@@ -255,7 +255,7 @@ const S3 = new AWS.S3()
 
 The `/webhooks/answer` endpoint responds to an incoming call with a [Nexmo Call Control Object (NCCO)](/voice/voice-api/ncco-reference) that tells Nexmo how to handle the call.
 
-It uses a `connect` action to call your other personal number and a `record` action to record the call audio, specifiying that there are two input `channels`. The `record` action triggers a `POST` request to the `/webhooks/recording` endpoint when the call completes:
+It uses a `connect` action to call your other personal number and a `record` action to record the call audio, specifying that there are two input `channels`. The `record` action triggers a `POST` request to the `/webhooks/recording` endpoint when the call completes:
 
 ```javascript
 app.get('/webhooks/answer', (req, res) => {
@@ -367,7 +367,7 @@ function transcribeRecording(params) {
 
 ### Transcription job complete
 
-When Cloudwatch learns that the transcription job has completed, it triggers our Lambda. The Lambda function makes a `POST` request to the `/webhooks/transcription` endpoint with the results of the transcription:
+When CloudWatch learns that the transcription job has completed, it triggers our Lambda. The Lambda function makes a `POST` request to the `/webhooks/transcription` endpoint with the results of the transcription:
 
 ```javascript
 app.post('/webhooks/transcription', (req, res) => {
@@ -524,9 +524,9 @@ The following resources will help you learn more:
   * [Voice API reference](/api/voice)
   * [NCCO reference](/voice/voice-api/ncco-reference)
 * **AWS**
-  * [AWS Node.js SDK reference](https://aws.amazon.com/sdk-for-node-js/)
+  * [AWS node.js.js SDK reference](https://aws.amazon.com/sdk-for-node-js/)
   * [Amazon Transcribe API features](https://aws.amazon.com/transcribe/)
   * [Amazon Transcribe API reference](https://docs.aws.amazon.com/transcribe/latest/dg/API_Reference.html)
   * [Amazon S3 documentation](https://docs.aws.amazon.com/s3/)
-  * [Amazon Cloudwatch documentation](https://docs.aws.amazon.com/cloudwatch/)
+  * [Amazon CloudWatch documentation](https://docs.aws.amazon.com/cloudwatch/)
   * [Amazon Lambda](https://docs.aws.amazon.com/lambda/)
