@@ -271,3 +271,4 @@ CloudWatch
 CloudFormation
 Lambda
 endpoint
+middleware

@@ -108,7 +108,7 @@ aws s3 mb s3://your-transcription-bucket-name --region us-east-1
 
 ### Get the code
 
-The code for this project is [on GitHub](https://github.com/Nexmo/amazon-transcribe-call). It is written in node.js.js  using the [express](https://expressjs.com/) web application framework. It is a working example that you can adapt to suit your own requirements.
+The code for this project is [on GitHub](https://github.com/Nexmo/amazon-transcribe-call). It is written in node.js  using the [express](https://expressjs.com/) web application framework. It is a working example that you can adapt to suit your own requirements.
 
 Either clone or download the repository to your local machine, in a new directory.
 
@@ -116,9 +116,9 @@ Either clone or download the repository to your local machine, in a new director
 
 Run `npm install` in the application directory to install the required dependencies:
 
-* `aws-sdk`: The AWS node.js.js SDK
-* `body-parser`: node.js.js body-parsing middleware
-* `express`: A web application framework for node.js.js
+* `aws-sdk`: The AWS node.js SDK
+* `body-parser`: node.js body-parsing middleware
+* `express`: A web application framework for node.js
 * `serverless`: To deploy your Lambda function
 * `shortid`: Generates random file names for call recordings
 
@@ -524,7 +524,7 @@ The following resources will help you learn more:
   * [Voice API reference](/api/voice)
   * [NCCO reference](/voice/voice-api/ncco-reference)
 * **AWS**
-  * [AWS node.js.js SDK reference](https://aws.amazon.com/sdk-for-node-js/)
+  * [AWS node.js SDK reference](https://aws.amazon.com/sdk-for-node-js/)
   * [Amazon Transcribe API features](https://aws.amazon.com/transcribe/)
   * [Amazon Transcribe API reference](https://docs.aws.amazon.com/transcribe/latest/dg/API_Reference.html)
   * [Amazon S3 documentation](https://docs.aws.amazon.com/s3/)
