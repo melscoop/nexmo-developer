@@ -131,15 +131,17 @@ Move your downloaded `private.key` file into the root of your application direct
 
 Then, copy `example.env` to `.env` and configure the following settings:
 
-* `NEXMO_APPLICATION_ID`: The Nexmo Voice Application ID you created earlier
-* `NEXMO_PRIVATE_KEY_PATH`: For example: `./private.key`
-* `OTHER_PHONE_NUMBER`: Another phone number you can call to create a conversation
-* `AWS_KEY`: Your AWS key
-* `AWS_SECRET`: Your AWS secret
-* `AWS_REGION`: Your AWS region, e.g. `us-east-1`
-* `S3_PATH`: Your path to S3 bucket storage, which should include the `AWS_REGION`, e.g. `https://s3-us-east-1.amazonaws.com`
-* `S3_AUDIO_BUCKET_NAME`: The S3 bucket which will contain the raw call audio files
-* `S3_TRANSCRIPTS_BUCKET_NAME`: The S3 bucket which will contain transcripts of the call audio
+Setting | Description
+--|--
+`NEXMO_APPLICATION_ID` | The Nexmo Voice Application ID you created earlier
+`NEXMO_PRIVATE_KEY_PATH` | For example: `./private.key`
+`OTHER_PHONE_NUMBER` | Another phone number you can call to create a conversation
+`AWS_KEY` | Your AWS key
+`AWS_SECRET` | Your AWS secret
+`AWS_REGION` | Your AWS region, e.g. `us-east-1`
+`S3_PATH` | Your path to S3 bucket storage, which should include the `AWS_REGION`, e.g. `https://s3-us-east-1.amazonaws.com`
+`S3_AUDIO_BUCKET_NAME` | The S3 bucket which will contain the raw call audio files
+`S3_TRANSCRIPTS_BUCKET_NAME` | The S3 bucket which will contain transcripts of the call audio
 
 ### Deploy your Lambda
 
