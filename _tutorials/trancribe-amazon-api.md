@@ -83,6 +83,7 @@ nexmo link:app NEXMO_NUMBER APPLICATION_ID
 The transcription is performed by the Amazon Transcribe API, which is part of [Amazon Web Services (AWS)](https://aws.amazon.com/). You need an AWS account to use the Transcribe API. If you haven't already got an AWS account, you'll learn how to create one in the next step.
 
 You will also need to:
+
 * Create two new [S3](https://aws.amazon.com/s3/) buckets to store the raw call audio and generated transcripts
 * Configure a [CloudWatch event](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) that launches a serverless [Lambda function](https://aws.amazon.com/lambda/) when your transcription job is complete
 
