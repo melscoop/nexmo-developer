@@ -222,7 +222,7 @@ The application directory also contains the following sub folders:
 
 ### Using the Nexmo REST API client library
 
-The following code in `index.js`instantiates the Nexmo REST API client library, which you will use to save the call recordings later on:
+The following code in `index.js` instantiates the Nexmo REST API client library, which you will use to save the call recordings later on:
 
 ```javascript
 const Nexmo = require("nexmo")
