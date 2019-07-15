@@ -440,7 +440,7 @@ function downloadFile(key) {
 
 3. Say a few words into each handset and then disconnect both.
 
-4. Watch the transcription job being processed in your console:
+4. Watch the transcription job being processed in your console (note that this can take several minutes):
 
     ```sh
     { end_time: '2019-07-10T12:57:38.000Z',
