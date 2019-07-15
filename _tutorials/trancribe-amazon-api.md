@@ -11,9 +11,7 @@ In this tutorial, you will learn how to record a Voice API call and transcribe i
 
 ![Application Overview](/assets/images/amazon-transcribe-vapi-tutorial.png "Application Overview")
 
-## Before you begin
-
-### What you need
+## Prerequisites
 You need at least two personal phone numbers:
 
 * One to call your [Nexmo virtual number](/numbers/overview) and initiate the conference call.
@@ -21,10 +19,9 @@ You need at least two personal phone numbers:
 
 If you have access to more than two numbers you can include them as participants in the conference call too. See [adding more callers](#adding-more-callers).
 
-### Sign up for Nexmo
-[Sign up for a Nexmo account](https://dashboard.nexmo.com/sign-up), if you don't already have one.
+You also need a Nexmo account. [Sign up here](https://dashboard.nexmo.com/sign-up) if you don't already have one.
 
-### Install and configure Nexmo CLI
+## Install and configure Nexmo CLI
 This tutorial uses the [Nexmo command line tool](https://github.com/Nexmo/nexmo-cli), so ensure that it is installed and configured before proceeding.
 
 Run the following `npm` command at a terminal prompt to install the CLI tool:
@@ -39,7 +36,7 @@ Configure the CLI tool with your `NEXMO_API_KEY` and `NEXMO_API_SECRET`, which y
 nexmo setup NEXMO_API_KEY NEXMO_API_SECRET
 ```
 
-### Purchase a Nexmo number
+## Purchase a Nexmo number
 If you don't already have one, purchase a Nexmo number to receive inbound calls.
 
 1. List the numbers available for purchase, replacing `COUNTRY_CODE` with your location's [two-character country code](https://www.iban.com/country-codes):
@@ -53,7 +50,7 @@ If you don't already have one, purchase a Nexmo number to receive inbound calls.
     nexmo number:buy 447700900001
     ```
 
-### Create a Voice API Application
+## Create a Voice API Application
 
 Use the CLI to create a Voice API Application that contains configuration details for the application you are building. These include:
 
@@ -72,7 +69,7 @@ nexmo app:create "Call Transcription" https://example.com/webhooks/answer https:
 
 Make a note of the Application ID and the location of the `private.key` file. You will need these in later steps.
 
-### Link your Nexmo number
+## Link your Nexmo number
 
 Run the following CLI command to link your Voice API Application with your Nexmo number using the Application ID:
 
