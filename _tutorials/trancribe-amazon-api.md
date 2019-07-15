@@ -254,7 +254,7 @@ const transcribeService = new AWS.TranscribeService()
 const S3 = new AWS.S3()
 ```
 
-### Defining the answer URL
+### Defining the answer webhook
 
 The `/webhooks/answer` endpoint responds to an incoming call with a [Nexmo Call Control Object (NCCO)](/voice/voice-api/ncco-reference) that tells Nexmo how to handle the call.
 
@@ -281,6 +281,17 @@ app.get('/webhooks/answer', (req, res) => {
       format: 'mp3'
     }
   ])
+})
+```
+
+### Defining the events webhook
+
+The `/webhooks/events` endpoint logs call events (submitted by Nexmo as a `POST` request) and displays them to the console:
+
+```javascript
+app.post('/webhooks/events', (req, res) => {
+  console.log(req.body)
+  return res.status(204).send("")
 })
 ```
 
