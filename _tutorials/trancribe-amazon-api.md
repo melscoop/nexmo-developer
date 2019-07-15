@@ -262,7 +262,10 @@ It uses a `connect` action to call your other personal number and a `record` act
 
 ```javascript
 app.get('/webhooks/answer', (req, res) => {
-  return res.json([
+  return res.json([{
+      action: 'talk',
+      text: 'Thanks for calling, we will connect you now'
+    },
     {
       action: 'connect',
       endpoint: [{
@@ -440,7 +443,7 @@ function downloadFile(key) {
 
 3. Say a few words into each handset and then disconnect both.
 
-4. Watch the transcription job being processed in your console (note that this can take several minutes):
+4. Watch the transcription job being processed in your console. (**Note**: this can take several minutes):
 
     ```sh
     { end_time: '2019-07-10T12:57:38.000Z',
