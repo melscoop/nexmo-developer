@@ -64,7 +64,7 @@ Use the CLI to create a Voice API Application that contains configuration detail
 Replace `example.com` in the following command with your own public-facing URL or `ngrok` host name. This returns an application ID and downloads the authentication details in a file called `private.key`.
 
 ```sh
-nexmo app:create "Call Transcription" https://example.com/webhooks/answer https://example.com/webhooks/event --keyfile private.key
+nexmo app:create "Call Transcription" https://example.com/webhooks/answer https://example.com/webhooks/events --keyfile private.key
 ```
 
 Make a note of the Application ID and the location of the `private.key` file. You will need these in later steps.
@@ -84,7 +84,8 @@ The transcription is performed by the Amazon Transcribe API, which is part of [A
 You will also need to:
 
 * Create two new [S3](https://aws.amazon.com/s3/) buckets to store the raw call audio and generated transcripts
-* Configure a [CloudWatch event](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) that launches a serverless [Lambda function](https://aws.amazon.com/lambda/) when your transcription job is complete
+* Configure a [CloudWatch event](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html). This triggers a serverless [Lambda function](https://aws.amazon.com/lambda/) when your transcription job is complete.
+* Create and deploy the Lambda function that notifies your application that the transcript is available for download. 
 
 ### Create an AWS account
 
@@ -140,7 +141,7 @@ Setting | Description
 `S3_AUDIO_BUCKET_NAME` | The S3 bucket which will contain the raw call audio files
 `S3_TRANSCRIPTS_BUCKET_NAME` | The S3 bucket which will contain transcripts of the call audio
 
-### Deploy your Lambda
+### Deploy your Lambda function
 
 The `transcribeReadyService` folder contains a `handler.js` file which defines a Lambda function. This lambda makes a `POST` request to the `/webhooks/transcription` endpoint when CloudWatch receives a transcription job complete event.
 
