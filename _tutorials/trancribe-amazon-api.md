@@ -143,7 +143,21 @@ Setting | Description
 
 ### Deploy your Lambda function
 
-The `transcribeReadyService` folder contains a `handler.js` file which defines a Lambda function. This lambda makes a `POST` request to the `/webhooks/transcription` endpoint when CloudWatch receives a transcription job complete event.
+AWS Lambda is a service that runs code in response to events and automatically manages the computing resources that code requires. It is an example of a "serverless" function (also known as "Function as a Service" (FAAS)). In this tutorial, you will use the [serverless framework](https://serverless.com/) to template and deploy your Lambda function.
+
+First, ensure that the `serverless` node package is installed:
+
+```sh
+serverless -v
+```
+
+If it displays the version number, you are good to go. If not, install `serverless` using `npm`:
+
+```sh
+npm install -g serverless
+```
+
+The `transcribeReadyService` folder contains a `handler.js` file which defines the Lambda function. This lambda makes a `POST` request to the `/webhooks/transcription` endpoint when CloudWatch receives a transcription job complete event.
 
 Change the `options.host` property to match your public-facing server's host name:
 
