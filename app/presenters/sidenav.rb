@@ -41,7 +41,7 @@ class Sidenav
 
   def items
     if @namespace.present?
-      @context = [{
+      [{
         title: @namespace,
         path: @path.gsub('app/views', ''),
         children: children,
