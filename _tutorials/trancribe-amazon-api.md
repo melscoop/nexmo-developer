@@ -143,7 +143,7 @@ Setting | Description
 
 ### Deploy your Lambda function
 
-AWS Lambda is a service that runs code in response to events and automatically manages the computing resources that code requires. It is an example of a "serverless" function (also known as "Function as a Service" (FAAS)). In this tutorial, you will use the [serverless framework](https://serverless.com/) to template and deploy your Lambda function.
+AWS Lambda is a service that runs code in response to events and automatically manages the computing resources that code requires. It is an example of a "serverless" function, also known as "Function as a Service" (FAAS). In this tutorial, you will use the [serverless framework](https://serverless.com/) to template and deploy your Lambda function.
 
 First, ensure that the `serverless` node package is installed:
 
